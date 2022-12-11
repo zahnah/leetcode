@@ -1,4 +1,4 @@
-package stringset
+package leetcode
 
 // ReverseString
 // #344 https://leetcode.com/problems/reverse-string/
