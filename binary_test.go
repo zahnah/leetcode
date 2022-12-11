@@ -23,3 +23,10 @@ func TestSearch(t *testing.T) {
 		}
 	}
 }
+
+// ReverseString
+func TestFirstBadVersion(t *testing.T) {
+	if result := FirstBadVersion(5); result != 4 {
+		t.Errorf("Output %q not equal to expected %q", result, 4)
+	}
+}
