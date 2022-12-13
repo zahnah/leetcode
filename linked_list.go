@@ -5,6 +5,12 @@ type ListNode struct {
 	Next *ListNode
 }
 
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
 // MiddleNode
 // 876. Middle of the Linked List
 // https://leetcode.com/problems/middle-of-the-linked-list/
@@ -36,4 +42,23 @@ func RemoveNthFromEnd(head *ListNode, n int) *ListNode {
 	}
 	next.Next = next.Next.Next
 	return head
+}
+
+// IsValidBST
+// 98. Validate Binary Search Tree
+// https://leetcode.com/problems/validate-binary-search-tree/
+func IsValidBST(root *TreeNode) bool {
+	return IsValidBSTChild(root, nil, nil)
+}
+func IsValidBSTChild(root *TreeNode, min *TreeNode, max *TreeNode) bool {
+	if nil != min && root.Val >= min.Val || nil != max && root.Val <= max.Val {
+		return false
+	}
+	if root.Left != nil && !IsValidBSTChild(root.Left, root, max) {
+		return false
+	}
+	if root.Right != nil && !IsValidBSTChild(root.Right, min, root) {
+		return false
+	}
+	return true
 }

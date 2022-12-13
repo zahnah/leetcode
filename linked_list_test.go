@@ -89,3 +89,103 @@ func TestRemoveNthFromEnd(t *testing.T) {
 		}
 	}
 }
+
+type IsValidBSTTest struct {
+	arg1     *TreeNode
+	expected bool
+}
+
+var IsValidBSTTests = []IsValidBSTTest{
+	{arg1: &TreeNode{
+		Val: 2,
+		Left: &TreeNode{
+			Val:   1,
+			Left:  nil,
+			Right: nil,
+		},
+		Right: &TreeNode{
+			Val:   3,
+			Left:  nil,
+			Right: nil,
+		},
+	}, expected: true},
+	{arg1: &TreeNode{
+		Val: 5,
+		Left: &TreeNode{
+			Val:   1,
+			Left:  nil,
+			Right: nil,
+		},
+		Right: &TreeNode{
+			Val: 4,
+			Left: &TreeNode{
+				Val:   3,
+				Left:  nil,
+				Right: nil,
+			},
+			Right: &TreeNode{
+				Val:   6,
+				Left:  nil,
+				Right: nil,
+			},
+		},
+	}, expected: false},
+	{arg1: &TreeNode{
+		Val: 5,
+		Left: &TreeNode{
+			Val: 1,
+			Left: &TreeNode{
+				Val:   3,
+				Left:  nil,
+				Right: nil,
+			},
+			Right: nil,
+		},
+		Right: nil,
+	}, expected: false},
+	{arg1: &TreeNode{
+		Val: 2,
+		Left: &TreeNode{
+			Val:   2,
+			Left:  nil,
+			Right: nil,
+		},
+		Right: &TreeNode{
+			Val:   2,
+			Left:  nil,
+			Right: nil,
+		},
+	}, expected: false},
+	{arg1: &TreeNode{
+		Val: 5,
+		Left: &TreeNode{
+			Val:   4,
+			Left:  nil,
+			Right: nil,
+		},
+		Right: &TreeNode{
+			Val: 6,
+			Left: &TreeNode{
+				Val:   3,
+				Left:  nil,
+				Right: nil,
+			},
+			Right: &TreeNode{
+				Val:   7,
+				Left:  nil,
+				Right: nil,
+			},
+		},
+	}, expected: false},
+}
+
+// [5,4,6,null,null,3,7]
+
+func TestIsValidBST(t *testing.T) {
+	for i, test := range IsValidBSTTests {
+		result := IsValidBST(test.arg1)
+		if result != test.expected {
+			t.Errorf("%d: Output %v not equal to expected %v", i, result, test.expected)
+		}
+	}
+}
