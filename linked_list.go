@@ -62,3 +62,16 @@ func IsValidBSTChild(root *TreeNode, min *TreeNode, max *TreeNode) bool {
 	}
 	return true
 }
+
+// LowestCommonAncestor
+// 235. Lowest Common Ancestor of a Binary Search Tree
+// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+func LowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	if root == p || root == q || (root.Val > p.Val || root.Val > q.Val) && (root.Val < q.Val || root.Val < p.Val) {
+		return root
+	} else if root.Left != nil && root.Val > p.Val && root.Val > q.Val {
+		return LowestCommonAncestor(root.Left, p, q)
+	} else {
+		return LowestCommonAncestor(root.Right, p, q)
+	}
+}
