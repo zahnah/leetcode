@@ -1,8 +1,31 @@
 package leetcode
 
+import "fmt"
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
+}
+
+func (node *ListNode) String() string {
+	result := []rune{}
+	each := node
+
+	for each != nil {
+		result = append(result, rune(each.Val))
+		each = each.Next
+	}
+	return fmt.Sprint(result)
+}
+
+func createListNode(list []int) *ListNode {
+	var root = ListNode{
+		Val: list[0],
+	}
+	if len(list) > 1 {
+		root.Next = createListNode(list[1:])
+	}
+	return &root
 }
 
 type TreeNode struct {
