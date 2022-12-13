@@ -202,6 +202,44 @@ var LowestCommonAncestorTest2 = &TreeNode{
 		},
 	},
 }
+var LowestCommonAncestorTest3 = &TreeNode{
+	Val: 6,
+	Left: &TreeNode{
+		Val: 2,
+		Left: &TreeNode{
+			Val: 1,
+			Left: &TreeNode{
+				Val: 0,
+			},
+		},
+		Right: &TreeNode{
+			Val: 4,
+			Left: &TreeNode{
+				Val:   3,
+				Left:  nil,
+				Right: nil,
+			},
+			Right: &TreeNode{
+				Val:   5,
+				Left:  nil,
+				Right: nil,
+			},
+		},
+	},
+	Right: &TreeNode{
+		Val:  8,
+		Left: nil,
+		Right: &TreeNode{
+			Val:  10,
+			Left: nil,
+			Right: &TreeNode{
+				Val:   12,
+				Left:  nil,
+				Right: nil,
+			},
+		},
+	},
+}
 var LowestCommonAncestorTests = []LowestCommonAncestorTest{
 	{arg1: LowestCommonAncestorTest1, arg2: LowestCommonAncestorTest1.Left, arg3: LowestCommonAncestorTest1.Right, expected: LowestCommonAncestorTest1},
 	{arg1: LowestCommonAncestorTest2, arg2: LowestCommonAncestorTest2.Left, arg3: LowestCommonAncestorTest2.Right, expected: LowestCommonAncestorTest2},
@@ -216,6 +254,25 @@ func TestLowestCommonAncestor(t *testing.T) {
 		result := LowestCommonAncestor(test.arg1, test.arg2, test.arg3)
 		if result != test.expected {
 			t.Errorf("%d: Output %v not equal to expected %v", i, result, test.expected)
+		}
+	}
+}
+
+type TreeNodeStringTest struct {
+	arg1     *TreeNode
+	expected string
+}
+
+var TreeNodeStringTests = []TreeNodeStringTest{
+	{arg1: LowestCommonAncestorTest1, expected: "[2 1 3]"},
+	{arg1: LowestCommonAncestorTest2, expected: "[6 2 8 0 4 7 9 nil nil 3 5]"},
+	{arg1: LowestCommonAncestorTest3, expected: "[6 2 8 1 4 nil 10 0 nil 3 5 nil nil nil 12]"},
+}
+
+func TestTreeNodeString(t *testing.T) {
+	for i, test := range TreeNodeStringTests {
+		if fmt.Sprint(test.arg1) != test.expected {
+			t.Errorf("%d: Output %v not equal to expected %v", i, test.arg1, test.expected)
 		}
 	}
 }

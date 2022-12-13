@@ -8,7 +8,7 @@ type ListNode struct {
 }
 
 func (node *ListNode) String() string {
-	result := []rune{}
+	var result []rune
 	each := node
 
 	for each != nil {
@@ -32,6 +32,38 @@ type TreeNode struct {
 	Val   int
 	Left  *TreeNode
 	Right *TreeNode
+}
+
+func (node *TreeNode) String() string {
+	var result []string
+	q1 := []*TreeNode{node}
+	var q2 []*TreeNode
+	for len(q1) > 0 {
+		for _, child := range q1 {
+			val := "nil"
+			if child != nil {
+				val = fmt.Sprint(child.Val)
+				q2 = append(q2, child.Left, child.Right)
+			} else {
+				q2 = append(q2, nil, nil)
+			}
+			result = append(result, val)
+		}
+		lastValueIndex := len(q2) - 1
+		for ; lastValueIndex > 0; lastValueIndex -= 2 {
+			if q2[lastValueIndex] != nil || q2[lastValueIndex-1] != nil {
+				break
+			}
+		}
+		if lastValueIndex > 0 {
+			q2 = q2[0 : lastValueIndex+1]
+			q1 = q2
+			q2 = []*TreeNode{}
+		} else {
+			break
+		}
+	}
+	return fmt.Sprint(result)
 }
 
 // MiddleNode
