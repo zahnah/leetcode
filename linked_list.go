@@ -66,6 +66,43 @@ func (node *TreeNode) String() string {
 	return fmt.Sprint(result)
 }
 
+func createTreeNode(values []int) *TreeNode {
+	i := 1
+	deep := 2
+	root := TreeNode{
+		Val: values[0],
+	}
+	q1 := []*TreeNode{&root}
+	var q2 []*TreeNode
+	for i < len(values) {
+		for j := 0; j < deep && i < len(values); j++ {
+			ji := j / 2
+			if values[i] != -1 {
+				node := &TreeNode{
+					Val: values[i],
+				}
+				if j%2 == 0 {
+					q1[ji].Left = node
+				} else {
+					q1[ji].Right = node
+				}
+			}
+			i++
+		}
+		for _, child := range q1 {
+			if child != nil {
+				q2 = append(q2, child.Left, child.Right)
+			} else {
+				q2 = append(q2, nil, nil)
+			}
+		}
+		q1 = q2
+		q2 = []*TreeNode{}
+		deep *= 2
+	}
+	return &root
+}
+
 // MiddleNode
 // 876. Middle of the Linked List
 // https://leetcode.com/problems/middle-of-the-linked-list/

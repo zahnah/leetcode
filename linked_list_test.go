@@ -53,87 +53,11 @@ type IsValidBSTTest struct {
 }
 
 var IsValidBSTTests = []IsValidBSTTest{
-	{arg1: &TreeNode{
-		Val: 2,
-		Left: &TreeNode{
-			Val:   1,
-			Left:  nil,
-			Right: nil,
-		},
-		Right: &TreeNode{
-			Val:   3,
-			Left:  nil,
-			Right: nil,
-		},
-	}, expected: true},
-	{arg1: &TreeNode{
-		Val: 5,
-		Left: &TreeNode{
-			Val:   1,
-			Left:  nil,
-			Right: nil,
-		},
-		Right: &TreeNode{
-			Val: 4,
-			Left: &TreeNode{
-				Val:   3,
-				Left:  nil,
-				Right: nil,
-			},
-			Right: &TreeNode{
-				Val:   6,
-				Left:  nil,
-				Right: nil,
-			},
-		},
-	}, expected: false},
-	{arg1: &TreeNode{
-		Val: 5,
-		Left: &TreeNode{
-			Val: 1,
-			Left: &TreeNode{
-				Val:   3,
-				Left:  nil,
-				Right: nil,
-			},
-			Right: nil,
-		},
-		Right: nil,
-	}, expected: false},
-	{arg1: &TreeNode{
-		Val: 2,
-		Left: &TreeNode{
-			Val:   2,
-			Left:  nil,
-			Right: nil,
-		},
-		Right: &TreeNode{
-			Val:   2,
-			Left:  nil,
-			Right: nil,
-		},
-	}, expected: false},
-	{arg1: &TreeNode{
-		Val: 5,
-		Left: &TreeNode{
-			Val:   4,
-			Left:  nil,
-			Right: nil,
-		},
-		Right: &TreeNode{
-			Val: 6,
-			Left: &TreeNode{
-				Val:   3,
-				Left:  nil,
-				Right: nil,
-			},
-			Right: &TreeNode{
-				Val:   7,
-				Left:  nil,
-				Right: nil,
-			},
-		},
-	}, expected: false},
+	{arg1: createTreeNode([]int{2, 1, 3}), expected: true},
+	{arg1: createTreeNode([]int{5, 1, 4, -1, -1, 3, 6}), expected: false},
+	{arg1: createTreeNode([]int{5, 1, -1, 3, -1}), expected: false},
+	{arg1: createTreeNode([]int{2, 2, 2}), expected: false},
+	{arg1: createTreeNode([]int{5, 4, 6, -1, -1, 3, 7}), expected: false},
 }
 
 func TestIsValidBST(t *testing.T) {
@@ -152,94 +76,8 @@ type LowestCommonAncestorTest struct {
 	expected *TreeNode
 }
 
-var LowestCommonAncestorTest1 = &TreeNode{
-	Val: 2,
-	Left: &TreeNode{
-		Val:   1,
-		Left:  nil,
-		Right: nil,
-	},
-	Right: &TreeNode{
-		Val:   3,
-		Left:  nil,
-		Right: nil,
-	},
-}
-var LowestCommonAncestorTest2 = &TreeNode{
-	Val: 6,
-	Left: &TreeNode{
-		Val: 2,
-		Left: &TreeNode{
-			Val:   0,
-			Left:  nil,
-			Right: nil,
-		},
-		Right: &TreeNode{
-			Val: 4,
-			Left: &TreeNode{
-				Val:   3,
-				Left:  nil,
-				Right: nil,
-			},
-			Right: &TreeNode{
-				Val:   5,
-				Left:  nil,
-				Right: nil,
-			},
-		},
-	},
-	Right: &TreeNode{
-		Val: 8,
-		Left: &TreeNode{
-			Val:   7,
-			Left:  nil,
-			Right: nil,
-		},
-		Right: &TreeNode{
-			Val:   9,
-			Left:  nil,
-			Right: nil,
-		},
-	},
-}
-var LowestCommonAncestorTest3 = &TreeNode{
-	Val: 6,
-	Left: &TreeNode{
-		Val: 2,
-		Left: &TreeNode{
-			Val: 1,
-			Left: &TreeNode{
-				Val: 0,
-			},
-		},
-		Right: &TreeNode{
-			Val: 4,
-			Left: &TreeNode{
-				Val:   3,
-				Left:  nil,
-				Right: nil,
-			},
-			Right: &TreeNode{
-				Val:   5,
-				Left:  nil,
-				Right: nil,
-			},
-		},
-	},
-	Right: &TreeNode{
-		Val:  8,
-		Left: nil,
-		Right: &TreeNode{
-			Val:  10,
-			Left: nil,
-			Right: &TreeNode{
-				Val:   12,
-				Left:  nil,
-				Right: nil,
-			},
-		},
-	},
-}
+var LowestCommonAncestorTest1 = createTreeNode([]int{2, 1, 3})
+var LowestCommonAncestorTest2 = createTreeNode([]int{6, 2, 8, 0, 4, 7, 9, -1, -1, 3, 5})
 var LowestCommonAncestorTests = []LowestCommonAncestorTest{
 	{arg1: LowestCommonAncestorTest1, arg2: LowestCommonAncestorTest1.Left, arg3: LowestCommonAncestorTest1.Right, expected: LowestCommonAncestorTest1},
 	{arg1: LowestCommonAncestorTest2, arg2: LowestCommonAncestorTest2.Left, arg3: LowestCommonAncestorTest2.Right, expected: LowestCommonAncestorTest2},
@@ -264,15 +102,34 @@ type TreeNodeStringTest struct {
 }
 
 var TreeNodeStringTests = []TreeNodeStringTest{
-	{arg1: LowestCommonAncestorTest1, expected: "[2 1 3]"},
-	{arg1: LowestCommonAncestorTest2, expected: "[6 2 8 0 4 7 9 nil nil 3 5]"},
-	{arg1: LowestCommonAncestorTest3, expected: "[6 2 8 1 4 nil 10 0 nil 3 5 nil nil nil 12]"},
+	{arg1: createTreeNode([]int{2, 1, 3}), expected: "[2 1 3]"},
+	{arg1: createTreeNode([]int{6, 2, 8, 0, 4, 7, 9, -1, -1, 3, 5}), expected: "[6 2 8 0 4 7 9 nil nil 3 5]"},
+	{arg1: createTreeNode([]int{6, 2, 8, 1, 4, -1, 10, 0, -1, 3, 5, -1, -1, -1, 12}), expected: "[6 2 8 1 4 nil 10 0 nil 3 5 nil nil nil 12]"},
 }
 
 func TestTreeNodeString(t *testing.T) {
 	for i, test := range TreeNodeStringTests {
 		if fmt.Sprint(test.arg1) != test.expected {
 			t.Errorf("%d: Output %v not equal to expected %v", i, test.arg1, test.expected)
+		}
+	}
+}
+
+type CreateListNodeTest struct {
+	arg1     []int
+	expected string
+}
+
+var CreateListNodeTests = []CreateListNodeTest{
+	{arg1: []int{2, 1, 3}, expected: "[2 1 3]"},
+	{arg1: []int{6, 2, 8, 0, 4, 7, 9, -1, -1, 3, 5}, expected: "[6 2 8 0 4 7 9 nil nil 3 5]"},
+	{arg1: []int{6, -1, 8, -1, -1, 7, 9, -1, -1, -1, -1, -1, -1, -1, 12}, expected: "[6 nil 8 nil nil 7 9 nil nil nil nil nil nil nil 12]"},
+}
+
+func TestCreateListNode(t *testing.T) {
+	for i, test := range CreateListNodeTests {
+		if fmt.Sprint(createTreeNode(test.arg1)) != test.expected {
+			t.Errorf("%d: Output %v not equal to expected %v", i, createTreeNode(test.arg1), test.expected)
 		}
 	}
 }
