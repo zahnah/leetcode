@@ -54,3 +54,38 @@ func lengthOfLongestSubstring(s string) int {
 	}
 	return max
 }
+
+// checkInclusion
+// 567. Permutation in String
+// https://leetcode.com/problems/permutation-in-string/
+func checkInclusion(s1 string, s2 string) bool {
+	var countS2, countS1 uint
+	var fit bool
+	lengthS1, lengthS2 := len(s1), len(s2)
+	for i := 0; i < lengthS2; i++ {
+		if lengthS2-i < lengthS1 {
+			break
+		}
+
+		fit = true
+		for j := 0; j < lengthS1; j++ {
+			countS2, countS1 = 0, 0
+			for jj := 0; jj < lengthS1; jj++ {
+				if s2[i+jj] == s1[j] {
+					countS2++
+				}
+				if s1[jj] == s1[j] {
+					countS1++
+				}
+			}
+			if countS1 != countS2 {
+				fit = false
+				break
+			}
+		}
+		if fit {
+			return true
+		}
+	}
+	return false
+}

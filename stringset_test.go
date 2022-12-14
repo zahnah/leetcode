@@ -60,3 +60,25 @@ func TestLengthOfLongestSubstring(t *testing.T) {
 		}
 	}
 }
+
+type CheckInclusionTest struct {
+	arg1     string
+	arg2     string
+	expected bool
+}
+
+var CheckInclusionTests = []CheckInclusionTest{
+	{arg1: "ab", arg2: "eidbaooo", expected: true},
+	{arg1: "ab", arg2: "eidboaoo", expected: false},
+	{arg1: "ab", arg2: "a", expected: false},
+	{arg1: "ab", arg2: "ab", expected: true},
+	{arg1: "abc", arg2: "bbbca", expected: true},
+}
+
+func TestCheckInclusion(t *testing.T) {
+	for i, test := range CheckInclusionTests {
+		if result := checkInclusion(test.arg1, test.arg2); result != test.expected {
+			t.Errorf("%d: Output %v not equal to expected %v", i, result, test.expected)
+		}
+	}
+}
