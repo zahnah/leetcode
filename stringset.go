@@ -30,3 +30,27 @@ func ReverseWords(s string) string {
 	}
 	return string(words)
 }
+
+// lengthOfLongestSubstring
+// 3. Longest Substring Without Repeating Characters
+// https://leetcode.com/problems/longest-substring-without-repeating-characters/
+func lengthOfLongestSubstring(s string) int {
+	var max, left, right int
+	var length = len(s)
+	for i := 0; i < length; i++ {
+		for j := left; j < right; j++ {
+			if s[j] == s[i] {
+				if max < right-left {
+					max = right - left
+				}
+				left = j + 1
+				break
+			}
+		}
+		right++
+	}
+	if max < right-left {
+		max = right - left
+	}
+	return max
+}
