@@ -21,3 +21,18 @@ func TestFib(t *testing.T) {
 		}
 	}
 }
+
+var ClimbStairsTests = []FibTest{
+	{arg1: 2, expected: 2},
+	{arg1: 3, expected: 3},
+	{arg1: 4, expected: 5},
+}
+
+func TestClimbStairs(t *testing.T) {
+	for _, test := range ClimbStairsTests {
+		result := climbStairs(test.arg1)
+		if result != test.expected {
+			t.Errorf("Output %v not equal to expected %v", result, test.expected)
+		}
+	}
+}
