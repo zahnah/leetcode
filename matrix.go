@@ -83,3 +83,57 @@ func destroyIsland(image [][]byte, sr int, sc int) {
 		}
 	}
 }
+
+// maxAreaOfIsland
+// 695. Max Area of Island
+// https://leetcode.com/problems/max-area-of-island/
+func maxAreaOfIsland(grid [][]int) int {
+	var max, size int
+	for i := 0; i < len(grid); i++ {
+		for j := 0; j < len(grid[i]); j++ {
+			if grid[i][j] == 1 {
+				size = sizeOfIsland(grid, i, j)
+				if size > max {
+					max = size
+				}
+			}
+		}
+	}
+	return max
+}
+
+func sizeOfIsland(image [][]int, sr int, sc int) int {
+	size := 0
+	m := len(image) - 1
+	n := len(image[0]) - 1
+
+	cellColour := image[sr][sc]
+	pixels := []int{sr, sc}
+
+	for len(pixels) > 0 {
+		x1, y1 := pixels[0], pixels[1]
+		pixels = pixels[2:]
+
+		if image[x1][y1] == 0 {
+			continue
+		}
+
+		image[x1][y1] = 0
+		size++
+
+		if x1 < m && image[x1+1][y1] == cellColour {
+			pixels = append(pixels, x1+1, y1)
+		}
+		if x1 > 0 && image[x1-1][y1] == cellColour {
+			pixels = append(pixels, x1-1, y1)
+		}
+		if y1 > 0 && image[x1][y1-1] == cellColour {
+			pixels = append(pixels, x1, y1-1)
+		}
+		if y1 < n && image[x1][y1+1] == cellColour {
+			pixels = append(pixels, x1, y1+1)
+		}
+	}
+
+	return size
+}

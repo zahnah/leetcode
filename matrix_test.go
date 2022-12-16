@@ -99,3 +99,33 @@ func TestNumIslands(t *testing.T) {
 		}
 	}
 }
+
+type MaxAreaOfIslandTest struct {
+	arg1     [][]int
+	expected int
+}
+
+var MaxAreaOfIslandTests = []MaxAreaOfIslandTest{
+	{
+		arg1: [][]int{
+			{0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+			{0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0},
+			{0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+		},
+		expected: 6,
+	},
+}
+
+func TestMaxAreaOfIsland(t *testing.T) {
+	for _, test := range MaxAreaOfIslandTests {
+		result := maxAreaOfIsland(test.arg1)
+		if result != test.expected {
+			t.Errorf("Output %v not equal to expected %v", result, test.expected)
+		}
+	}
+}
