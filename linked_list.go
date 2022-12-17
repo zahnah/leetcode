@@ -167,3 +167,22 @@ func LowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 		return LowestCommonAncestor(root.Right, p, q)
 	}
 }
+
+// mergeTrees
+// 617. Merge Two Binary Trees
+// https://leetcode.com/problems/merge-two-binary-trees/
+func mergeTrees(root1 *TreeNode, root2 *TreeNode) *TreeNode {
+	if root1 == nil {
+		return root2
+	}
+
+	if root2 == nil {
+		return root1
+	}
+
+	return &TreeNode{
+		Val:   root1.Val + root2.Val,
+		Left:  mergeTrees(root1.Left, root2.Left),
+		Right: mergeTrees(root1.Right, root2.Right),
+	}
+}

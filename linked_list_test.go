@@ -133,3 +133,22 @@ func TestCreateListNode(t *testing.T) {
 		}
 	}
 }
+
+type MergeTreesTest struct {
+	arg1     *TreeNode
+	arg2     *TreeNode
+	expected string
+}
+
+var MergeTreesTests = []MergeTreesTest{
+	{arg1: createTreeNode([]int{1, 3, 2, 5}), arg2: createTreeNode([]int{2, 1, 3, 0, 4, -1, 7}), expected: "[3 4 5 5 4 nil 7]"},
+}
+
+func TestMergeTrees(t *testing.T) {
+	for i, test := range MergeTreesTests {
+		result := mergeTrees(test.arg1, test.arg2)
+		if fmt.Sprint(result) != test.expected {
+			t.Errorf("%d: Output %v not equal to expected %v", i, result, test.expected)
+		}
+	}
+}
