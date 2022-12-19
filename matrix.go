@@ -137,3 +137,61 @@ func sizeOfIsland(image [][]int, sr int, sc int) int {
 
 	return size
 }
+
+// updateMatrix
+// 542. 01 Matrix
+// https://leetcode.com/problems/01-matrix/
+func updateMatrix(mat [][]int) [][]int {
+	result := make([][]int, len(mat))
+
+	var q1, q2 []int
+
+	for x := 0; x < len(mat); x++ {
+		result[x] = make([]int, len(mat[x]))
+		for y := 0; y < len(mat[x]); y++ {
+			if mat[x][y] != 0 {
+				q1 = append(q1, x, y)
+				result[x][y] = -1
+			}
+		}
+	}
+
+	var min, step int
+	for len(q1) > 0 {
+		step++
+		for len(q1) > 0 {
+			x, y := q1[0], q1[1]
+			q1 = q1[2:]
+			min = -1
+			if x > 0 && result[x-1][y] != -1 {
+				if min == -1 || min > result[x-1][y] {
+					min = result[x-1][y]
+				}
+			}
+			if y > 0 && result[x][y-1] != -1 {
+				if min == -1 || min > result[x][y-1] {
+					min = result[x][y-1]
+				}
+			}
+			if x < len(result)-1 && result[x+1][y] != -1 {
+				if min == -1 || min > result[x+1][y] {
+					min = result[x+1][y]
+				}
+			}
+			if y < len(result[x])-1 && result[x][y+1] != -1 {
+				if min == -1 || min > result[x][y+1] {
+					min = result[x][y+1]
+				}
+			}
+			if min == -1 || min > step {
+				q2 = append(q2, x, y)
+			} else {
+				result[x][y] = min + 1
+			}
+		}
+		q1 = q2
+		q2 = []int{}
+	}
+
+	return result
+}

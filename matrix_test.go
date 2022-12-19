@@ -1,6 +1,7 @@
 package leetcode
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -125,6 +126,89 @@ func TestMaxAreaOfIsland(t *testing.T) {
 	for _, test := range MaxAreaOfIslandTests {
 		result := maxAreaOfIsland(test.arg1)
 		if result != test.expected {
+			t.Errorf("Output %v not equal to expected %v", result, test.expected)
+		}
+	}
+}
+
+type UpdateMatrixTest struct {
+	arg1     [][]int
+	expected [][]int
+}
+
+var UpdateMatrixTests = []UpdateMatrixTest{
+	{
+		arg1: [][]int{
+			{0, 0, 0},
+			{0, 1, 0},
+			{0, 0, 0},
+		},
+		expected: [][]int{
+			{0, 0, 0},
+			{0, 1, 0},
+			{0, 0, 0},
+		},
+	},
+	{
+		arg1: [][]int{
+			{0, 0, 0},
+			{0, 1, 0},
+			{1, 1, 1},
+		},
+		expected: [][]int{
+			{0, 0, 0},
+			{0, 1, 0},
+			{1, 2, 1},
+		},
+	},
+	{
+		arg1: [][]int{
+			{0, 1, 0},
+			{0, 1, 0},
+			{0, 1, 0},
+			{0, 1, 0},
+			{0, 1, 0},
+		},
+		expected: [][]int{
+			{0, 1, 0},
+			{0, 1, 0},
+			{0, 1, 0},
+			{0, 1, 0},
+			{0, 1, 0},
+		},
+	},
+	{
+		arg1: [][]int{
+			{1, 1, 0, 0, 1, 0, 0, 1, 1, 0},
+			{1, 0, 0, 1, 0, 1, 1, 1, 1, 1},
+			{1, 1, 1, 0, 0, 1, 1, 1, 1, 0},
+			{0, 1, 1, 1, 0, 1, 1, 1, 1, 1},
+			{0, 0, 1, 1, 1, 1, 1, 1, 1, 0},
+			{1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+			{0, 1, 1, 1, 1, 1, 1, 0, 0, 1},
+			{1, 1, 1, 1, 1, 0, 0, 1, 1, 1},
+			{0, 1, 0, 1, 1, 0, 1, 1, 1, 1},
+			{1, 1, 1, 0, 1, 0, 1, 1, 1, 1},
+		},
+		expected: [][]int{
+			{2, 1, 0, 0, 1, 0, 0, 1, 1, 0},
+			{1, 0, 0, 1, 0, 1, 1, 2, 2, 1},
+			{1, 1, 1, 0, 0, 1, 2, 2, 1, 0},
+			{0, 1, 2, 1, 0, 1, 2, 3, 2, 1},
+			{0, 0, 1, 2, 1, 2, 1, 2, 1, 0},
+			{1, 1, 2, 3, 2, 1, 0, 1, 1, 1},
+			{0, 1, 2, 3, 2, 1, 1, 0, 0, 1},
+			{1, 2, 1, 2, 1, 0, 0, 1, 1, 2},
+			{0, 1, 0, 1, 1, 0, 1, 2, 2, 3},
+			{1, 2, 1, 0, 1, 0, 1, 2, 3, 4},
+		},
+	},
+}
+
+func TestUpdateMatrix(t *testing.T) {
+	for _, test := range UpdateMatrixTests {
+		result := updateMatrix(test.arg1)
+		if fmt.Sprint(result) != fmt.Sprint(test.expected) {
 			t.Errorf("Output %v not equal to expected %v", result, test.expected)
 		}
 	}
