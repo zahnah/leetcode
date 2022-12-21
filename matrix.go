@@ -195,3 +195,66 @@ func updateMatrix(mat [][]int) [][]int {
 
 	return result
 }
+
+// orangesRotting
+// 994. Rotting Oranges
+// https://leetcode.com/problems/rotting-oranges/
+func orangesRotting(grid [][]int) int {
+	var (
+		q1, q2, rotten []int
+		step, i        int
+	)
+	const (
+		FRESH  = 1
+		ROTTEN = 2
+	)
+
+	for x := 0; x < len(grid); x++ {
+		for y := 0; y < len(grid[x]); y++ {
+			if grid[x][y] == FRESH {
+				q1 = append(q1, x, y)
+			}
+		}
+	}
+
+	for len(q1) > 0 {
+		step++
+		i = 0
+		for len(q1) > i {
+			x, y := q1[i], q1[i+1]
+			i += 2
+
+			if x > 0 && grid[x-1][y] == ROTTEN {
+				rotten = append(rotten, x, y)
+				continue
+			} else if y > 0 && grid[x][y-1] == ROTTEN {
+				rotten = append(rotten, x, y)
+				continue
+			} else if x < len(grid)-1 && grid[x+1][y] == ROTTEN {
+				rotten = append(rotten, x, y)
+				continue
+			} else if y < len(grid[x])-1 && grid[x][y+1] == ROTTEN {
+				rotten = append(rotten, x, y)
+				continue
+			} else {
+				q2 = append(q2, x, y)
+			}
+		}
+
+		i = 0
+		for len(rotten) > i {
+			grid[rotten[i]][rotten[i+1]] = ROTTEN
+			i += 2
+		}
+
+		if len(q2) > 0 && len(q2) == len(q1) {
+			return -1
+		} else {
+			q1 = q2
+			q2 = []int{}
+			rotten = []int{}
+		}
+	}
+
+	return step
+}

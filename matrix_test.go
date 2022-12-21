@@ -213,3 +213,36 @@ func TestUpdateMatrix(t *testing.T) {
 		}
 	}
 }
+
+type OrangesRottingTest struct {
+	arg1     [][]int
+	expected int
+}
+
+var OrangesRottingTests = []OrangesRottingTest{
+	{
+		arg1: [][]int{
+			{2, 1, 1},
+			{1, 1, 0},
+			{0, 1, 1},
+		},
+		expected: 4,
+	},
+	{
+		arg1: [][]int{
+			{2, 1, 1},
+			{0, 1, 1},
+			{1, 0, 1},
+		},
+		expected: -1,
+	},
+}
+
+func TestOrangesRotting(t *testing.T) {
+	for _, test := range OrangesRottingTests {
+		result := orangesRotting(test.arg1)
+		if result != test.expected {
+			t.Errorf("Output %v not equal to expected %v", result, test.expected)
+		}
+	}
+}
