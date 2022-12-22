@@ -26,3 +26,24 @@ func climbStairs(n int) int {
 	}
 	return i2
 }
+
+// combine
+// 77. Combinations
+// https://leetcode.com/problems/combinations/
+func combine(n int, k int) [][]int {
+	var result [][]int
+	subCombine(&result, []int{}, k, 1, n)
+	return result
+}
+func subCombine(result *[][]int, part []int, k int, from int, to int) {
+	for from <= to {
+		if k == 1 {
+			newElem := make([]int, len(part))
+			copy(newElem, part)
+			*result = append(*result, append(newElem, from))
+		} else {
+			subCombine(result, append(part, from), k-1, from+1, to)
+		}
+		from++
+	}
+}
