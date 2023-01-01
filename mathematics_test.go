@@ -60,3 +60,36 @@ func TestCombine(t *testing.T) {
 		}
 	}
 }
+
+type MinCostClimbingStairsTest struct {
+	arg1     []int
+	expected int
+}
+
+var MinCostClimbingStairsTests = []MinCostClimbingStairsTest{
+	//{
+	//	arg1:     []int{10, 15, 20},
+	//	expected: 15,
+	//},
+	//{
+	//	arg1:     []int{1, 100, 1, 1, 1, 100, 1, 1, 100, 1},
+	//	expected: 6,
+	//},
+	//{
+	//	arg1:     []int{0, 2, 2, 1},
+	//	expected: 2,
+	//},
+	{
+		arg1:     []int{0, 2, 3, 2},
+		expected: 3,
+	},
+}
+
+func TestMinCostClimbingStairs(t *testing.T) {
+	for _, test := range MinCostClimbingStairsTests {
+		result := minCostClimbingStairs(test.arg1)
+		if result != test.expected {
+			t.Errorf("Output %v not equal to expected %v", result, test.expected)
+		}
+	}
+}

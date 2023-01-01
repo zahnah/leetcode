@@ -47,3 +47,25 @@ func subCombine(result *[][]int, part []int, k int, from int, to int) {
 		from++
 	}
 }
+
+// minCostClimbingStairs
+// 746. Min Cost Climbing Stairs
+// https://leetcode.com/problems/min-cost-climbing-stairs/
+func minCostClimbingStairs(cost []int) int {
+	length := len(cost)
+
+	maxCost := make([]int, length)
+	maxCost[0] = cost[0]
+	maxCost[1] = cost[1]
+
+	for i := 2; i < length; i++ {
+		maxCost[i] = cost[i] + min(maxCost[i-1], maxCost[i-2])
+	}
+	return min(maxCost[length-1], maxCost[length-2])
+}
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
