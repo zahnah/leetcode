@@ -69,3 +69,26 @@ func min(a, b int) int {
 	}
 	return b
 }
+
+// uniquePaths
+// 62. Unique Paths
+// https://leetcode.com/problems/unique-paths/
+func uniquePaths(m int, n int) int {
+	helper := make([][]int, m)
+	for i := 0; i < len(helper); i++ {
+		helper[i] = make([]int, n)
+	}
+
+	return uniquePathsHelper(m, n, helper)
+}
+func uniquePathsHelper(m int, n int, helper [][]int) int {
+	if m == 1 || n == 1 {
+		return 1
+	}
+	result := helper[m-1][n-1]
+	if result == 0 {
+		result = uniquePathsHelper(m-1, n, helper) + uniquePathsHelper(m, n-1, helper)
+		helper[m-1][n-1] = result
+	}
+	return result
+}

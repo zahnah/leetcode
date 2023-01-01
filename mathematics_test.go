@@ -67,18 +67,18 @@ type MinCostClimbingStairsTest struct {
 }
 
 var MinCostClimbingStairsTests = []MinCostClimbingStairsTest{
-	//{
-	//	arg1:     []int{10, 15, 20},
-	//	expected: 15,
-	//},
-	//{
-	//	arg1:     []int{1, 100, 1, 1, 1, 100, 1, 1, 100, 1},
-	//	expected: 6,
-	//},
-	//{
-	//	arg1:     []int{0, 2, 2, 1},
-	//	expected: 2,
-	//},
+	{
+		arg1:     []int{10, 15, 20},
+		expected: 15,
+	},
+	{
+		arg1:     []int{1, 100, 1, 1, 1, 100, 1, 1, 100, 1},
+		expected: 6,
+	},
+	{
+		arg1:     []int{0, 2, 2, 1},
+		expected: 2,
+	},
 	{
 		arg1:     []int{0, 2, 3, 2},
 		expected: 3,
@@ -88,6 +88,39 @@ var MinCostClimbingStairsTests = []MinCostClimbingStairsTest{
 func TestMinCostClimbingStairs(t *testing.T) {
 	for _, test := range MinCostClimbingStairsTests {
 		result := minCostClimbingStairs(test.arg1)
+		if result != test.expected {
+			t.Errorf("Output %v not equal to expected %v", result, test.expected)
+		}
+	}
+}
+
+type UniquePathsTest struct {
+	arg1     int
+	arg2     int
+	expected int
+}
+
+var UniquePathsTests = []UniquePathsTest{
+	{
+		arg1:     3,
+		arg2:     7,
+		expected: 28,
+	},
+	{
+		arg1:     3,
+		arg2:     2,
+		expected: 3,
+	},
+	{
+		arg1:     51,
+		arg2:     9,
+		expected: 1916797311,
+	},
+}
+
+func TestUniquePathsTest(t *testing.T) {
+	for _, test := range UniquePathsTests {
+		result := uniquePaths(test.arg1, test.arg2)
 		if result != test.expected {
 			t.Errorf("Output %v not equal to expected %v", result, test.expected)
 		}
