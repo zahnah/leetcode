@@ -89,3 +89,54 @@ func checkInclusion(s1 string, s2 string) bool {
 	}
 	return false
 }
+
+// findAnagrams
+// 438. Find All Anagrams in a String
+// https://leetcode.com/problems/find-all-anagrams-in-a-string/
+func findAnagrams(s string, p string) []int {
+	lengthS, lengthP := len(s), len(p)
+	sMap := make(map[byte]int)
+	pMap := make(map[byte]int)
+	var result []int
+	var leftPart int
+
+	for i := 0; i < lengthP; i++ {
+		pMap[p[i]]++
+	}
+
+	for i := 0; i < lengthS; i++ {
+		leftPart = i - lengthP
+
+		if leftPart >= 0 {
+			sMap[s[leftPart]]--
+
+			if sMap[s[leftPart]] == 0 {
+				delete(sMap, s[leftPart])
+			}
+		}
+
+		sMap[s[i]]++
+
+		if len(pMap) == len(sMap) {
+			isTheSame := true
+
+			for key, pValue := range pMap {
+				if sValue, ok := sMap[key]; ok {
+					if sValue != pValue {
+						isTheSame = false
+						break
+					}
+				} else {
+					isTheSame = false
+					break
+				}
+			}
+
+			if isTheSame {
+				result = append(result, i+1-lengthP)
+			}
+		}
+	}
+
+	return result
+}

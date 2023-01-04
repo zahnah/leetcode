@@ -1,6 +1,7 @@
 package leetcode
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -78,6 +79,25 @@ var CheckInclusionTests = []CheckInclusionTest{
 func TestCheckInclusion(t *testing.T) {
 	for i, test := range CheckInclusionTests {
 		if result := checkInclusion(test.arg1, test.arg2); result != test.expected {
+			t.Errorf("%d: Output %v not equal to expected %v", i, result, test.expected)
+		}
+	}
+}
+
+type FindAnagramsTest struct {
+	arg1     string
+	arg2     string
+	expected []int
+}
+
+var FindAnagramsTests = []FindAnagramsTest{
+	{arg1: "cbaebabacd", arg2: "abc", expected: []int{0, 6}},
+	{arg1: "abab", arg2: "ab", expected: []int{0, 1, 2}},
+}
+
+func TestFindAnagramsTests(t *testing.T) {
+	for i, test := range FindAnagramsTests {
+		if result := findAnagrams(test.arg1, test.arg2); fmt.Sprint(result) != fmt.Sprint(test.expected) {
 			t.Errorf("%d: Output %v not equal to expected %v", i, result, test.expected)
 		}
 	}
