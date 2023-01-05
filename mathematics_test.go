@@ -118,11 +118,44 @@ var UniquePathsTests = []UniquePathsTest{
 	},
 }
 
-func TestUniquePathsTest(t *testing.T) {
+func TestUniquePaths(t *testing.T) {
 	for _, test := range UniquePathsTests {
 		result := uniquePaths(test.arg1, test.arg2)
 		if result != test.expected {
 			t.Errorf("Output %v not equal to expected %v", result, test.expected)
+		}
+	}
+}
+
+type TwoSumTest struct {
+	arg1     []int
+	arg2     int
+	expected []int
+}
+
+var TwoSumTests = []TwoSumTest{
+	{
+		arg1:     []int{2, 7, 11, 15},
+		arg2:     9,
+		expected: []int{0, 1},
+	},
+	{
+		arg1:     []int{3, 2, 4},
+		arg2:     6,
+		expected: []int{1, 2},
+	},
+	{
+		arg1:     []int{3, 3},
+		arg2:     6,
+		expected: []int{0, 1},
+	},
+}
+
+func TestTwoSum(t *testing.T) {
+	for i, test := range TwoSumTests {
+		result := twoSum(test.arg1, test.arg2)
+		if fmt.Sprint(result) != fmt.Sprint(test.expected) {
+			t.Errorf("%v: Output %v not equal to expected %v", i, result, test.expected)
 		}
 	}
 }

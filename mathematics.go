@@ -92,3 +92,23 @@ func uniquePathsHelper(m int, n int, helper [][]int) int {
 	}
 	return result
 }
+
+// twoSum
+// 1. Two Sum
+// https://leetcode.com/problems/two-sum/
+func twoSum(nums []int, target int) []int {
+	left, right, length := 0, 1, len(nums)
+	for left < length {
+		right = left + 1
+		for right < length {
+			if target == nums[left]+nums[right] {
+				return []int{left, right}
+			} else {
+				right++
+			}
+		}
+
+		left++
+	}
+	return nil
+}
