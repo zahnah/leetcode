@@ -140,3 +140,36 @@ func findAnagrams(s string, p string) []int {
 
 	return result
 }
+
+// characterReplacement
+// 424. Longest Repeating Character Replacement
+// https://leetcode.com/problems/longest-repeating-character-replacement/
+func characterReplacement(s string, k int) int {
+	leftSide, maxLength, maxRepeatLetterCount, sLength := 0, 0, 0, len(s)
+	sMap := make(map[byte]int)
+
+	for rightSide := 0; rightSide < sLength; rightSide++ {
+		rightChar := s[rightSide]
+		sMap[rightChar]++
+
+		maxRepeatLetterCount = max(maxRepeatLetterCount, sMap[rightChar])
+
+		if rightSide-leftSide+1-maxRepeatLetterCount > k {
+			leftChar := s[leftSide]
+			sMap[leftChar]--
+			leftSide++
+		}
+
+		maxLength = max(maxLength, rightSide-leftSide+1)
+	}
+
+	return maxLength
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+
+	return b
+}

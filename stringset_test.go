@@ -95,9 +95,30 @@ var FindAnagramsTests = []FindAnagramsTest{
 	{arg1: "abab", arg2: "ab", expected: []int{0, 1, 2}},
 }
 
-func TestFindAnagramsTests(t *testing.T) {
+func TestFindAnagrams(t *testing.T) {
 	for i, test := range FindAnagramsTests {
 		if result := findAnagrams(test.arg1, test.arg2); fmt.Sprint(result) != fmt.Sprint(test.expected) {
+			t.Errorf("%d: Output %v not equal to expected %v", i, result, test.expected)
+		}
+	}
+}
+
+type CharacterReplacementTest struct {
+	arg1     string
+	arg2     int
+	expected int
+}
+
+var CharacterReplacementTests = []CharacterReplacementTest{
+	{arg1: "ABAB", arg2: 2, expected: 4},
+	{arg1: "AABABBA", arg2: 1, expected: 4},
+	{arg1: "ABBB", arg2: 1, expected: 4},
+	{arg1: "BAAAB", arg2: 2, expected: 5},
+}
+
+func TestCharacterReplacement(t *testing.T) {
+	for i, test := range CharacterReplacementTests {
+		if result := characterReplacement(test.arg1, test.arg2); result != test.expected {
 			t.Errorf("%d: Output %v not equal to expected %v", i, result, test.expected)
 		}
 	}
