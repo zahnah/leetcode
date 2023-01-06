@@ -1,5 +1,7 @@
 package leetcode
 
+import "fmt"
+
 // ReverseString
 // #344 https://leetcode.com/problems/reverse-string/
 func ReverseString(s []byte) {
@@ -172,4 +174,29 @@ func max(a, b int) int {
 	}
 
 	return b
+}
+
+// getHint
+// 299. Bulls and Cows
+// https://leetcode.com/problems/bulls-and-cows/
+func getHint(secret string, guess string) string {
+	var bulls, caws int
+	hash := make(map[int32]int)
+	for _, s := range secret {
+		hash[s]++
+	}
+	for i, s := range guess {
+		if guess[i] == secret[i] {
+			bulls++
+			if hash[s] == 0 {
+				caws--
+			} else {
+				hash[s]--
+			}
+		} else if j, ok := hash[s]; ok && j > 0 {
+			hash[s]--
+			caws++
+		}
+	}
+	return fmt.Sprintf("%vA%vB", bulls, caws)
 }

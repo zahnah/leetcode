@@ -123,3 +123,23 @@ func TestCharacterReplacement(t *testing.T) {
 		}
 	}
 }
+
+type GetHintTest struct {
+	arg1     string
+	arg2     string
+	expected string
+}
+
+var GetHintTests = []GetHintTest{
+	{arg1: "1807", arg2: "7810", expected: "1A3B"},
+	{arg1: "1123", arg2: "0111", expected: "1A1B"},
+	{arg1: "1122", arg2: "1222", expected: "3A0B"},
+}
+
+func TestGetHint(t *testing.T) {
+	for i, test := range GetHintTests {
+		if result := getHint(test.arg1, test.arg2); result != test.expected {
+			t.Errorf("%d: Output %v not equal to expected %v", i, result, test.expected)
+		}
+	}
+}
