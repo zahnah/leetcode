@@ -1,6 +1,10 @@
 package leetcode
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
 
 // ReverseString
 // #344 https://leetcode.com/problems/reverse-string/
@@ -234,4 +238,26 @@ func backspaceCompareNextSymbol(s *string, i int) int {
 		}
 	}
 	return i
+}
+
+// decodeString
+// 394. Decode String
+// https://leetcode.com/problems/decode-string/
+func decodeString(s string) string {
+	left, right, length := 0, 0, len(s)-1
+	for right <= length {
+		if s[right] == '[' {
+			left = right
+		}
+		if s[right] == ']' {
+			leftNum := left - 1
+			for leftNum >= 0 && s[leftNum] >= '0' && s[leftNum] <= '9' {
+				leftNum--
+			}
+			num, _ := strconv.Atoi(s[leftNum+1 : left])
+			return decodeString(s[0:leftNum+1] + strings.Repeat(s[left+1:right], num) + s[right+1:length+1])
+		}
+		right++
+	}
+	return s
 }

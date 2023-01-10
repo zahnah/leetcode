@@ -168,3 +168,22 @@ func TestBackspaceCompare(t *testing.T) {
 		}
 	}
 }
+
+type DecodeStringTest struct {
+	arg1     string
+	expected string
+}
+
+var DecodeStringTests = []DecodeStringTest{
+	{arg1: "3[a]2[bc]", expected: "aaabcbc"},
+	{arg1: "3[a2[c]]", expected: "accaccacc"},
+	{arg1: "2[abc]3[cd]ef", expected: "abcabccdcdcdef"},
+}
+
+func TestDecodeStringTests(t *testing.T) {
+	for i, test := range DecodeStringTests {
+		if result := decodeString(test.arg1); result != test.expected {
+			t.Errorf("%d: Output %v not equal to expected %v", i, result, test.expected)
+		}
+	}
+}
