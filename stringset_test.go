@@ -143,3 +143,28 @@ func TestGetHint(t *testing.T) {
 		}
 	}
 }
+
+type BackspaceCompareTest struct {
+	arg1     string
+	arg2     string
+	expected bool
+}
+
+var BackspaceCompareTests = []BackspaceCompareTest{
+	{arg1: "ab#c", arg2: "ad#c", expected: true},
+	{arg1: "ab##", arg2: "c#d#", expected: true},
+	{arg1: "a#c", arg2: "b", expected: false},
+	{arg1: "a##c", arg2: "#a#c", expected: true},
+	{arg1: "bxj##tw", arg2: "bxo#j##tw", expected: true},
+	{arg1: "xywrrmp", arg2: "xywrrmu#p", expected: true},
+	{arg1: "bbbextm", arg2: "bbb#extm", expected: false},
+	{arg1: "rheyggodcclgstf", arg2: "#rheyggodcclgstf", expected: true},
+}
+
+func TestBackspaceCompare(t *testing.T) {
+	for i, test := range BackspaceCompareTests {
+		if result := backspaceCompare(test.arg1, test.arg2); result != test.expected {
+			t.Errorf("%d: Output %v not equal to expected %v", i, result, test.expected)
+		}
+	}
+}

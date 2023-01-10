@@ -200,3 +200,38 @@ func getHint(secret string, guess string) string {
 	}
 	return fmt.Sprintf("%vA%vB", bulls, caws)
 }
+
+// backspaceCompare
+// 844. Backspace String Compare
+// https://leetcode.com/problems/backspace-string-compare/
+func backspaceCompare(s string, t string) bool {
+	var sIndex, tIndex = len(s) - 1, len(t) - 1
+	for tIndex >= 0 || sIndex >= 0 {
+		sIndex = backspaceCompareNextSymbol(&s, sIndex)
+		tIndex = backspaceCompareNextSymbol(&t, tIndex)
+
+		if (sIndex >= 0 && tIndex < 0) || (sIndex < 0 && tIndex >= 0) || (sIndex >= 0 && tIndex >= 0 && s[sIndex] != t[tIndex]) {
+			return false
+		}
+
+		sIndex--
+		tIndex--
+	}
+
+	return sIndex <= 0 && tIndex <= 0
+}
+func backspaceCompareNextSymbol(s *string, i int) int {
+	for i >= 0 && (*s)[i] == '#' {
+		jump := 1
+		i--
+		for i >= 0 && jump > 0 {
+			if (*s)[i] == '#' {
+				jump++
+			} else {
+				jump--
+			}
+			i--
+		}
+	}
+	return i
+}
